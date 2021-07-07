@@ -1,0 +1,8 @@
+Dependencies for Project 'gpio', Target 'gpio': (DO NOT MODIFY !)
+F (..\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f429xx.s)(0x54CDC809)()
+F (..\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c)(0x54A913B2)()
+F (..\Lib\src\Led.c)(0x55FFB284)()
+F (..\Lib\src\sys.c)(0x54C83BDD)()
+F (..\Lib\src\B_LUX_V30.c)(0x00000000)()
+F (..\Lib\src\SysTick.c)(0x567CE3D1)()
+F (..\User\main.c)(0x57859FEA)()

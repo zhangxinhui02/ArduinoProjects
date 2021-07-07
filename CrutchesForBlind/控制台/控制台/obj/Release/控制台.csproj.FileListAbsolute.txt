@@ -1,0 +1,10 @@
+E:\Admin\桌面\控制台\控制台\bin\Release\控制台.exe
+E:\Admin\桌面\控制台\控制台\bin\Release\控制台.pdb
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.csprojResolveAssemblyReference.cache
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.Form1.resources
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.Properties.Resources.resources
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.csproj.GenerateResource.Cache
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.csproj.CoreCompileInputs.cache
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.exe
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.pdb
+E:\Admin\桌面\控制台\控制台\obj\Release\控制台.Map.resources

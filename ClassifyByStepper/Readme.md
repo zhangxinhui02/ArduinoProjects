@@ -2,9 +2,9 @@
 Author : zhangxinhui02  
 
 很简单的小程序。  
-![https://github.com/zhangxinhui02/ArduinoProjects/blob/main/ClassifyByStepper/docs/requirement.jpg]  
-![https://github.com/zhangxinhui02/ArduinoProjects/blob/main/ClassifyByStepper/docs/introduction1.jpg]  
-![https://github.com/zhangxinhui02/ArduinoProjects/blob/main/ClassifyByStepper/docs/introduction2.jpg]  
+[][https://github.com/zhangxinhui02/ArduinoProjects/blob/main/ClassifyByStepper/docs/requirement.jpg]  
+[][https://github.com/zhangxinhui02/ArduinoProjects/blob/main/ClassifyByStepper/docs/introduction1.jpg]  
+[][https://github.com/zhangxinhui02/ArduinoProjects/blob/main/ClassifyByStepper/docs/introduction2.jpg]  
 
 也许没有用到最简便的方法。。。
 

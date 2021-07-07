@@ -28,7 +28,7 @@ SoftwareSerial GY(8,9);
 
 //向光敏模块发送信号并接收光敏模块传回的数据
 double ValueReceive(){
-    byte v1,v2,v3,v4;
+    byte v1=0,v2=0,v3=0,v4=0;
     digitalWrite(RE,HIGH);
     digitalWrite(DE,HIGH);
     GY.write(0xA5);
@@ -37,29 +37,21 @@ double ValueReceive(){
     digitalWrite(RE,LOW);
     digitalWrite(DE,LOW);
 
+    //坑：不能写成byte v = GY.read();的形式，不然读取到的数据值是0xFF，我也不知道为什么
 
-    while(GY.available()==0){   //等待发送数据
+
+    while(GY.available()<9){   //等待发送数据
     }
-
-    while(GY.available()>0){    //获取数据
-        v1 = GY.read();
-        v1 = GY.read();
-        v1 = GY.read();
-        v1 = GY.read();
-        v1 = GY.read(); //读取到第五个字节
-        v2 = GY.read();
-        v3 = GY.read();
-        v4 = GY.read();
-    }
-
-    while(GY.available()>0){    //读取完本次数据防止意外
-        GY.read();
-    }
-    
-    double lux = (v1<<24)|(v2<<16)|(v3<<8)|v4;
-    lux = lux / 100;
-
-    return lux;
+    GY.read();
+    GY.read();
+    GY.read();
+    GY.read();
+    //从第五个byte开始读取
+    double lux = (GY.read()<<24)|(GY.read()<<16)|(GY.read()<<8)|GY.read();
+    //lux = lux / 100;
+    double ppfd=lux*12.5/1000;
+    GY.read();//清理掉第九个byte
+    return ppfd;
 }
 
 void setup() 
@@ -100,8 +92,8 @@ void loop()
     const double celsius = thermocouple->readCelsius();
 
     Serial.print(String(val));
-    //Serial.print(" umol.m-2.s-1 ");
-    Serial.print(" lux ");
+    Serial.print(" umol.m-2.s-1 ");
+    //Serial.print(" ppfd ");
     Serial.print(String(celsius));
     Serial.println(" C ");
 
@@ -114,8 +106,8 @@ void loop()
                   
         myFile.print("      光敏电阻=");//写入数据
         myFile.print(val);
-        //myFile.println(" umol.m-2.s-1 ");
-        myFile.println(" lux ");
+        myFile.println(" umol.m-2.s-1 ");
+        //myFile.println(" ppfd ");
         
                   
         //myFile.close();//关闭文件

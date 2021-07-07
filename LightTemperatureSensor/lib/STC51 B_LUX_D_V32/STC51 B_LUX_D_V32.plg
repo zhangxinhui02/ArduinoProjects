@@ -1,0 +1,24 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Administrator\Desktop\BCE\32d\32d\STC51 B_LUX_D_V32\STC51 B_LUX_D_V32.uvproj
+Project File Date:  06/13/2016
+
+<h2>Output:</h2>
+Rebuild target 'B_LUX_D_V32'
+assembling STARTUP.A51...
+compiling main.c...
+compiling Delay.c...
+compiling B_LUX_V32.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERIAL_INIT?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SERIAL_SEND_U8?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_B_LUX_READ?B_LUX_V32
+Program Size: data=9.0 xdata=27 code=2170
+creating hex file from "STC51 B_LUX_D_V32"...
+"STC51 B_LUX_D_V32" - 0 Error(s), 3 Warning(s).

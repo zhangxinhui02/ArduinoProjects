@@ -1,0 +1,6 @@
+"STARTUP.obj",
+"main.obj",
+"Delay.obj",
+"B_LUX_V32.obj" 
+TO "STC51 B_LUX_D_V32" 
+RAMSIZE(256) 

@@ -1,7 +1,7 @@
 /******************
  * 智能加湿器/AutomaticHumidifier
  * Some code comes from the Internet.
- * Reedit: zhangxinhui02
+ * Author: zhangxinhui02
  * 2021.8.17
  * 
  * Only after importing UTFT and DHT libraries in Libraries folder can you run this program.

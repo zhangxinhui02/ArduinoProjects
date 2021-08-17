@@ -1,6 +1,6 @@
 # 智能加湿器/AutomaticHumidifier   
 
-Reedit: zhangxinhui02  
+Author: zhangxinhui02  
 2021.8.17 
 
 * Some code comes from the Internet.  

@@ -1,7 +1,9 @@
 # 智能加湿器/AutomaticHumidifier   
 
 Author: zhangxinhui02  
-2021.8.17 
+2021.8.17  
+
+![](https://github.com/zhangxinhui02/ArduinoProjects/blob/main/AutomaticHumidifier/Docs/Information.jpg?raw=true)
 
 * Some code comes from the Internet.  
 

@@ -63,6 +63,7 @@ void setup()
 
 void loop()
 {
+  //更新数据
   TEMP = dht.readTemperature();
   HUMI = dht.readHumidity();
   WEIGHT = Get_Weight();
@@ -108,8 +109,8 @@ void loop()
   Driver();
 }
 
+//记录缓和模式运行的时间标记。注意：存储长时间的微秒数务必用long型！！！
 long TimeLightMode = 0;
-
 //硬件驱动函数
 void Driver(){
   if (isStart){                                   //当设备状态设置为运行时
@@ -130,9 +131,9 @@ void Driver(){
     digitalWrite(RELAY,LOW);
 }
 
-bool isTimeSet = false;
-int Time = 0;
-long TimeStartMillis = 0;
+bool isTimeSet = false;                           //表示定时模式的开启状态
+int Time = 0;                                     //定时模式设置的分钟数
+long TimeStartMillis = 0;                         //定时模式计算分钟使用的时间标记。注意：务必用long型！！！
 
 //设置定时器的函数
 void SetTimeChecker(){
@@ -140,6 +141,7 @@ void SetTimeChecker(){
   tone(BUZZER,494,100);
   Time = 0;
   TimeStartMillis = 0;
+  //显示提示信息
   myGLCD.clrScr(); //清屏
   myGLCD.print("Set Stop Time", CENTER, 2);
   myGLCD.print("Press A to add 1", LEFT, 20);   
@@ -148,6 +150,7 @@ void SetTimeChecker(){
   myGLCD.print("-firm.", RIGHT, 65);  
   myGLCD.print("Hold B to exit.", LEFT, 80); 
 
+  //处理用户输入操作
   while(1){
     myGLCD.print(String(Time)+" min(s)", CENTER, 103); 
     if(digitalRead(S1)){
@@ -218,20 +221,21 @@ void SetupLCD(){
   delay (2000);
 }
 
-//更新屏幕内容
+//更新屏幕内容。参数：屏幕更新模式(int)(1:全部更新 0:仅更新关键数据加快速度)
 void UpdateLCD(int AllUpdate){
-  //myGLCD.clrScr(); 
   if(AllUpdate){
-  myGLCD.clrScr();
-  myGLCD.print("Humidifier", CENTER, 5);
-  myGLCD.print("Status:         ", LEFT, 65);  
-  myGLCD.print("Mode (Press A): ", LEFT, 95);  
-  myGLCD.print("Temp.:          ", LEFT, 20);   
-  myGLCD.print("Humi.:          ", LEFT, 35);
-  myGLCD.print("G.:             ", LEFT, 50);
-  myGLCD.print("                ", LEFT, 80); 
-  myGLCD.print("                ",LEFT, 110); 
+    //打印基础文本
+    myGLCD.clrScr();
+    myGLCD.print("Humidifier", CENTER, 5);
+    myGLCD.print("Status:         ", LEFT, 65);  
+    myGLCD.print("Mode (Press A): ", LEFT, 95);  
+    myGLCD.print("Temp.:          ", LEFT, 20);   
+    myGLCD.print("Humi.:          ", LEFT, 35);
+    myGLCD.print("G.:             ", LEFT, 50);
+    myGLCD.print("                ", LEFT, 80); 
+    myGLCD.print("                ",LEFT, 110); 
   }
+  //打印关键数据
   myGLCD.print("Temp.: "+String(TEMP)+"C ", LEFT, 20); 
   myGLCD.print("Humi.:"+String(HUMI)+" ", LEFT, 35);
   myGLCD.print("G.:"+String(WEIGHT)+" g  ", LEFT, 50);

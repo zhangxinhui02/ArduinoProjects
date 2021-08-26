@@ -25,9 +25,9 @@ int HUMI = 0;
 int WEIGHT = 0;
 bool isStart = false;
 bool LightMode = false;
-#define MIN_WEIGHT 200    //停止加湿器的水的临界重量（单位：克）
-#define MIN_HUMI 20       //开启加湿器的临界湿度
-#define MAX_HUMI 30       //关闭加湿器的临界湿度
+#define MIN_WEIGHT 150    //停止加湿器的水的临界重量（单位：克）
+#define MIN_HUMI 55       //开启加湿器的临界湿度
+#define MAX_HUMI 70       //关闭加湿器的临界湿度
 
 DHT dht(4, 11);
 UTFT myGLCD(YYROBOT_TFT144,A2,A1,A5,A4,A3);  // Remember to change the model parameter to suit your display module!
@@ -58,19 +58,23 @@ void setup()
   delay(3000);
   dht.begin();
   Get_Maopi();
+  UpdateLCD(1);
 }
 
 void loop()
 {
-  //获取数据
   TEMP = dht.readTemperature();
   HUMI = dht.readHumidity();
   WEIGHT = Get_Weight();
-
+  
   //监测重量，若过少则直接进入死循环停止设备以保证安全
-  while(WEIGHT < MIN_WEIGHT)
+  while(WEIGHT < -1 * MIN_WEIGHT)
   {
     WEIGHT = Get_Weight();
+    if(WEIGHT >= -1 * MIN_WEIGHT){
+      UpdateLCD(1);
+      break;
+    }
     isStart = false;
     digitalWrite(RELAY,LOW);
     myGLCD.clrScr(); 
@@ -93,7 +97,9 @@ void loop()
   
   //监测A键(S1)调整加湿器模式
   while(digitalRead(S1)){
-    delay(100);
+    digitalWrite(BUZZER,HIGH);
+    delay(200);
+    digitalWrite(BUZZER,LOW);
     LightMode = !LightMode;
   }
   //监测B键(S2)启动定时功能
@@ -102,11 +108,11 @@ void loop()
   
   //循环调用
   TimeChecker();
-  UpdateLCD();
+  UpdateLCD(0);
   Driver();
 }
 
-int TimeLightMode = 0;
+long TimeLightMode = 0;
 
 //硬件驱动函数
 void Driver(){
@@ -117,7 +123,7 @@ void Driver(){
         TimeLightMode = millis();
         digitalWrite(RELAY,HIGH);
       }
-      if (millis() - TimeLightMode >= 10000)      //每10s转换一次启动状态，交替开关，达到缓和加湿的目的
+      if (millis() - TimeLightMode >= 10000 && millis() - TimeLightMode < 20000)      //每10s转换一次启动状态，交替开关，达到缓和加湿的目的
         digitalWrite(RELAY,LOW);
       if (millis() - TimeLightMode >= 20000)
         TimeLightMode = 0;
@@ -130,17 +136,20 @@ void Driver(){
 
 bool isTimeSet = false;
 int Time = 0;
-int TimeStartMillis = 0;
+long TimeStartMillis = 0;
 
 //设置定时器的函数
 void SetTimeChecker(){
   digitalWrite(RELAY,LOW);//中断雾化器防止水位过低
+  digitalWrite(BUZZER,HIGH);
   delay(100);
+  digitalWrite(BUZZER,LOW);
   Time = 0;
+  TimeStartMillis = 0;
   myGLCD.clrScr(); //清屏
   myGLCD.print("Set Stop Time", CENTER, 2);
   myGLCD.print("Press A to add 1", LEFT, 20);   
-  myGLCD.print("min for stop.", RIGHT, 35);
+  myGLCD.print("min for stopping.", RIGHT, 35);
   myGLCD.print("Press B to con", LEFT, 50);
   myGLCD.print("-firm.", RIGHT, 65);  
   myGLCD.print("Hold B to exit.", LEFT, 80); 
@@ -148,7 +157,7 @@ void SetTimeChecker(){
   while(1){
     myGLCD.print(String(Time)+" min(s)", CENTER, 103); 
     if(digitalRead(S1)){
-      delay(100);
+      delay(200);
       while(digitalRead(S1)){
         Time += 10;
         myGLCD.print(String(Time)+" min(s)", CENTER, 103); 
@@ -156,24 +165,27 @@ void SetTimeChecker(){
       }
       Time++;
     }else if(digitalRead(S2)){
-      delay(100);
+      delay(500);
       if(digitalRead(S2)){
         isTimeSet = false;
+        Time = 0;
+        TimeStartMillis = 0;
         digitalWrite(BUZZER,HIGH);
-        delay(100);//防止退出后再次进入
+        delay(200);//防止退出后再次进入
         digitalWrite(BUZZER,LOW);
-        delay(100);
+        delay(200);
         break;
       }
       isTimeSet = true;
       TimeStartMillis = millis();
       digitalWrite(BUZZER,HIGH);
-      delay(100);//防止退出后再次进入
+      delay(200);//防止退出后再次进入
       digitalWrite(BUZZER,LOW);
-      delay(100);
+      delay(200);
       break;
     }
   }
+  UpdateLCD(1);
 }
 
 //检查定时器的状态并执行定时关闭
@@ -183,6 +195,7 @@ void TimeChecker(){
     isStart = true;
     if (millis() - TimeStartMillis >= 60000){
       Time--;
+      TimeStartMillis = millis();
     }
     if (Time <= 0){
       isTimeSet = false;
@@ -216,16 +229,24 @@ void SetupLCD(){
 }
 
 //更新屏幕内容
-void UpdateLCD(){
-  myGLCD.clrScr(); 
+void UpdateLCD(int AllUpdate){
+  //myGLCD.clrScr(); 
+  if(AllUpdate){
+  myGLCD.clrScr();
   myGLCD.print("Humidifier", CENTER, 5);
-  myGLCD.print("Temp.: "+String(TEMP)+" C", LEFT, 20);   
-  myGLCD.print("Humi.:"+String(HUMI), LEFT, 35);
-  myGLCD.print("G.:"+String(WEIGHT)+" g", LEFT, 50);
-  myGLCD.print("Status:", LEFT, 65);  
-  myGLCD.print(CheckStatus(), RIGHT, 80); 
-  myGLCD.print("Mode (Press A):", LEFT, 95);  
-  myGLCD.print(CheckMode(), RIGHT, 110); 
+  myGLCD.print("Status:         ", LEFT, 65);  
+  myGLCD.print("Mode (Press A): ", LEFT, 95);  
+  myGLCD.print("Temp.:          ", LEFT, 20);   
+  myGLCD.print("Humi.:          ", LEFT, 35);
+  myGLCD.print("G.:             ", LEFT, 50);
+  myGLCD.print("                ", LEFT, 80); 
+  myGLCD.print("                ",LEFT, 110); 
+  }
+  myGLCD.print("Temp.: "+String(TEMP)+"C ", LEFT, 20); 
+  myGLCD.print("Humi.:"+String(HUMI)+" ", LEFT, 35);
+  myGLCD.print("G.:"+String(WEIGHT)+" g  ", LEFT, 50);
+  myGLCD.print(" "+CheckStatus()+"         ", LEFT, 80); 
+  myGLCD.print(" "+CheckMode()+"     ",LEFT, 110); 
 }
 
 //返回加湿器运行状态
@@ -241,7 +262,7 @@ String CheckStatus(){
 //返回加湿器模式
 String CheckMode(){
   if (LightMode == true)
-    return "Light Mode";
+    return " Light Mode";
   else
     return "Normal Mode";
 }

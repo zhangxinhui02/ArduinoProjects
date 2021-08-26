@@ -161,12 +161,12 @@ void mainTask(){
       digitalWrite(6,LOW);
         isLong=1;
         }
-      if(isLong==0){                            //如果长按按钮则向预设号码打电话
+      if(isLong==0){                            //如果短按按钮则向预设号码打电话
         cmd("ATD18995434635;",100);             //包含预设号码的打电话指令
           while(digitalRead(2)){                //按下按钮后
           }
           cmd("ATH",100);                       //发送挂断指令
-        }else{                                  //如果短按按钮则调用SOS()函数向预设号码发送SOS信息
+        }else{                                  //如果长按按钮则调用SOS()函数向预设号码发送SOS信息
           SOS();
           }
       }

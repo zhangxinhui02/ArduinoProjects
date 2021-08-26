@@ -2,7 +2,7 @@
  * 智能加湿器/AutomaticHumidifier
  * Some code comes from the Internet.
  * Author: zhangxinhui02
- * 2021.8.17
+ * 2021.8.27
  * 
  * Only after importing UTFT and DHT libraries in Libraries folder can you run this program.
  * Adafruit_Sensor(https://github.com/adafruit/Adafruit_Sensor) had added to ../Libraries/DHT folder.
@@ -80,9 +80,7 @@ void loop()
     myGLCD.clrScr(); 
     myGLCD.print("Warning", CENTER, 49);
     myGLCD.print("Water Needed !", CENTER, 64);
-    digitalWrite(BUZZER,HIGH);
-    delay(1000);
-    digitalWrite(BUZZER,LOW);
+    tone(BUZZER,494,1000);
     delay(1000);
   }
 
@@ -97,9 +95,7 @@ void loop()
   
   //监测A键(S1)调整加湿器模式
   while(digitalRead(S1)){
-    digitalWrite(BUZZER,HIGH);
-    delay(200);
-    digitalWrite(BUZZER,LOW);
+    tone(BUZZER,494,200);
     LightMode = !LightMode;
   }
   //监测B键(S2)启动定时功能
@@ -141,9 +137,7 @@ long TimeStartMillis = 0;
 //设置定时器的函数
 void SetTimeChecker(){
   digitalWrite(RELAY,LOW);//中断雾化器防止水位过低
-  digitalWrite(BUZZER,HIGH);
-  delay(100);
-  digitalWrite(BUZZER,LOW);
+  tone(BUZZER,494,100);
   Time = 0;
   TimeStartMillis = 0;
   myGLCD.clrScr(); //清屏
@@ -170,17 +164,13 @@ void SetTimeChecker(){
         isTimeSet = false;
         Time = 0;
         TimeStartMillis = 0;
-        digitalWrite(BUZZER,HIGH);
-        delay(200);//防止退出后再次进入
-        digitalWrite(BUZZER,LOW);
+        tone(BUZZER,494,200);
         delay(200);
         break;
       }
       isTimeSet = true;
       TimeStartMillis = millis();
-      digitalWrite(BUZZER,HIGH);
-      delay(200);//防止退出后再次进入
-      digitalWrite(BUZZER,LOW);
+      tone(BUZZER,494,200);
       delay(200);
       break;
     }

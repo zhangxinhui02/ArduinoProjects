@@ -1,5 +1,5 @@
 /* 盲人拐杖程序/CrutchesForBlind  
- * Auther: Li Shuo , zhangxinhui02  
+ * Author: Li Shuo , zhangxinhui02  
  *
  * 针脚说明
  * 蜂鸣器：6
@@ -162,7 +162,7 @@ void mainTask(){
         isLong=1;
         }
       if(isLong==0){                            //如果短按按钮则向预设号码打电话
-        cmd("ATD18995434635;",100);             //包含预设号码的打电话指令
+        cmd("ATD18600000000;",100);             //包含预设号码的打电话指令
           while(digitalRead(2)){                //按下按钮后
           }
           cmd("ATH",100);                       //发送挂断指令

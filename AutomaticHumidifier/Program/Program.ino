@@ -25,9 +25,9 @@ int HUMI = 0;
 int WEIGHT = 0;
 bool isStart = false;
 bool LightMode = false;
-#define MIN_WEIGHT 150    //停止加湿器的水的临界重量（单位：克）
-#define MIN_HUMI 55       //开启加湿器的临界湿度
-#define MAX_HUMI 70       //关闭加湿器的临界湿度
+#define MIN_WEIGHT 50     //停止加湿器的水的临界重量（单位：克）
+#define MIN_HUMI 70       //开启加湿器的临界湿度
+#define MAX_HUMI 80       //关闭加湿器的临界湿度
 
 DHT dht(4, 11);
 UTFT myGLCD(YYROBOT_TFT144,A2,A1,A5,A4,A3);  // Remember to change the model parameter to suit your display module!
@@ -97,6 +97,7 @@ void loop()
   //监测A键(S1)调整加湿器模式
   while(digitalRead(S1)){
     tone(BUZZER,494,200);
+    delay(300);
     LightMode = !LightMode;
   }
   //监测B键(S2)启动定时功能
@@ -239,8 +240,8 @@ void UpdateLCD(int AllUpdate){
   myGLCD.print("Temp.: "+String(TEMP)+"C ", LEFT, 20); 
   myGLCD.print("Humi.:"+String(HUMI)+" ", LEFT, 35);
   myGLCD.print("G.:"+String(WEIGHT)+" g  ", LEFT, 50);
-  myGLCD.print(" "+CheckStatus()+"         ", LEFT, 80); 
-  myGLCD.print(" "+CheckMode()+"     ",LEFT, 110); 
+  myGLCD.print(" "+CheckStatus()+"        ", LEFT, 80); 
+  myGLCD.print(" "+CheckMode(),LEFT, 110); 
 }
 
 //返回加湿器运行状态

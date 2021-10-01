@@ -22,6 +22,7 @@ void setup(){
     myservo.detach();
     if (finger.verifyPassword()) {
         Serial.println("Found fingerprint sensor!");
+        tone(11,494,1000);
     } 
     else {
         Serial.println("Error! Did not find fingerprint sensor :(");
@@ -33,6 +34,7 @@ void loop(){
     while(getFingerprintIDez() != -1){
     myservo.attach(5);
     myservo.write(180);
+    tone(11,700,300);
     delay(2000);
     myservo.write(0);
     delay(100);
@@ -47,10 +49,26 @@ int getFingerprintIDez() {
   if (p != FINGERPRINT_OK)  return -1;
 
   p = finger.image2Tz();
-  if (p != FINGERPRINT_OK)  return -1;
+  if (p != FINGERPRINT_OK){
+    tone(11,494,500);
+    delay(700);
+    tone(11,494,500);
+    delay(700);
+    tone(11,494,500);
+    delay(700);
+    return -1;
+  }
 
   p = finger.fingerFastSearch();
-  if (p != FINGERPRINT_OK)  return -1;
+  if (p != FINGERPRINT_OK){
+    tone(11,494,500);
+    delay(700);
+    tone(11,494,500);
+    delay(700);
+    tone(11,494,500);
+    delay(700);
+    return -1;
+  }
 
   // found a match!
   Serial.print("Found ID #"); Serial.print(finger.fingerID);

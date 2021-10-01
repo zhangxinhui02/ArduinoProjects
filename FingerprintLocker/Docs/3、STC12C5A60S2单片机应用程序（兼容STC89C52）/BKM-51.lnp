@@ -1,0 +1,4 @@
+"mian.obj",
+"oled.obj" 
+TO "BKM-51" 
+RAMSIZE(256) 

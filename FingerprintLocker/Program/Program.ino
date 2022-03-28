@@ -1,6 +1,7 @@
 /* FingerprintLocker/指纹门锁  
  * Author: zhangxinhui02  
- * 2021.10.1
+ * v1: 2021.10.1
+ * v2: 2022.3.28 缩短警报时间
  * Some code comes from the Internet.  
  */
 
@@ -50,23 +51,15 @@ int getFingerprintIDez() {
 
   p = finger.image2Tz();
   if (p != FINGERPRINT_OK){
-    tone(11,494,500);
-    delay(700);
-    tone(11,494,500);
-    delay(700);
-    tone(11,494,500);
-    delay(700);
+    tone(11,494,300);
+    delay(500);
     return -1;
   }
 
   p = finger.fingerFastSearch();
   if (p != FINGERPRINT_OK){
-    tone(11,494,500);
-    delay(700);
-    tone(11,494,500);
-    delay(700);
-    tone(11,494,500);
-    delay(700);
+    tone(11,494,300);
+    delay(500);
     return -1;
   }
 

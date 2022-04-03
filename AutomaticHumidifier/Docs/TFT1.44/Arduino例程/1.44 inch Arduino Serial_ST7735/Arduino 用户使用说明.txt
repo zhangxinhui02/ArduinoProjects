@@ -1,0 +1,23 @@
+1.开发环境需要使用1.0.6版本，不能使用1.6.x版本。目前库的代码可以在1.0.x的开发环境下正常运行。
+（科普下arduino的1.0.x版本针对8bit的内核，比如UNO/MEGA2560/NANO/PRO MINI等，而1.6.x是主要针对32bit内核，比如yun等板子）
+2.安装UTFT库文件
+	复制UTFT文件夹到开发环境的libraries文件夹下。
+3.arduin TFT屏对接方法：
+	arduino 的5v和TFT的5v对齐
+	arduino 的A5和TFT的CS对齐
+	然后把TFT屏幕插入arduino的排座即可。
+4.代码说明：
+	UTFT_Demo_128x128_Serial	一些绘图功能的演示（UNO/MEGA2560等都可以用）
+	UTFT_Font_128x128_Serial	一些字体显示（UNO/MEGA2560等都可以用）
+	UTFT_Bitmap_128x128_Serial	一些图片显示（占用内存较大，UNO可能编译不通过，需要在MEGA2560上使用）
+
+	
+
+TFT1.44彩屏购买地址：
+https://item.taobao.com/item.htm?spm=a1z10.1-c.w137712-175513579.8.2bDgyg&id=522808579863
+arduno UNO板子购买地址：
+https://item.taobao.com/item.htm?spm=a1z10.3-c.w4002-175517240.54.NOc3Tw&id=27554596680
+arduino UNO外壳地址：
+https://item.taobao.com/item.htm?spm=a1z10.3-c.w4002-175517240.33.NOc3Tw&id=521995057642
+arduno mega2560板子购买地址：
+https://item.taobao.com/item.htm?spm=a1z10.3-c.w4002-175517240.12.ligOdp&id=38041409136

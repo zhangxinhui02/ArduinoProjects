@@ -51,15 +51,15 @@ int getFingerprintIDez() {
 
   p = finger.image2Tz();
   if (p != FINGERPRINT_OK){
-    tone(11,494,300);
-    delay(500);
+    //tone(11,494,300);
+    delay(10);
     return -1;
   }
 
   p = finger.fingerFastSearch();
   if (p != FINGERPRINT_OK){
-    tone(11,494,300);
-    delay(500);
+    //tone(11,494,300);
+    delay(10);
     return -1;
   }
 

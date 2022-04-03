@@ -1,0 +1,14 @@
+STM32接口------->TFT接口
+PB0 				连接至TFT -LED
+PB1					连接至TFT --RS
+PB12 				连接至TFT --CS
+RST(也可以IO控制)	TFT--RST
+PB13				连接至TFT -- CLK
+PB15				连接至TFT - SDI
+
+
+可以直接配合本店的STM32F103R最小系统使用，带有TFT接口：
+https://item.taobao.com/item.htm?id=523336310868
+
+TFT1.44液晶屏购买链接：
+https://item.taobao.com/item.htm?id=522808579863
